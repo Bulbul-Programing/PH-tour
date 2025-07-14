@@ -1,0 +1,21 @@
+import mongoose from "mongoose";
+import app from "./app";
+import { Server } from 'http';
+
+let server: Server
+
+const startServer = async () => {
+    try {
+        await mongoose.connect('mongodb+srv://phtour:phtour.1@ph-tour.snnubxy.mongodb.net/Ph-tour?retryWrites=true&w=majority&appName=PH-Tour')
+
+        console.log('Database is connected!!');
+
+        server = app.listen(5000, () => {
+            console.log('Server is Running to port 5000');
+        })
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+startServer()
