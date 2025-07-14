@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { Error } from "mongoose";
 import app from "./app";
 import { Server } from 'http';
 
@@ -17,5 +17,38 @@ const startServer = async () => {
         console.log(error);
     }
 }
+
+process.on('SIGTERM', () => {
+    console.log('SIGTERM signal received ... server is shuting down!! ');
+
+    if (server) {
+        server.close(() => {
+            process.exit(1)
+        })
+    }
+    process.exit(1)
+})
+
+process.on('unhandledRejection', () => {
+    console.log('Unhandled Rejection detected ... server is shuting down!! ');
+
+    if (server) {
+        server.close(() => {
+            process.exit(1)
+        })
+    }
+    process.exit(1)
+})
+
+process.on('uncaughtException', () => {
+    console.log('Uncaught exception detected ... server is shuting down!! ');
+
+    if (server) {
+        server.close(() => {
+            process.exit(1)
+        })
+    }
+    process.exit(1)
+})
 
 startServer()
