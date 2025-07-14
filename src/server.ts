@@ -1,4 +1,5 @@
-import mongoose, { Error } from "mongoose";
+/* eslint-disable no-console */
+import mongoose from "mongoose";
 import app from "./app";
 import { Server } from 'http';
 
